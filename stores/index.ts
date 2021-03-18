@@ -1,15 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createImmutableStateInvariantMiddleware } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { themeSlice } from './theme'
 import { issuesSlice } from './issues'
 import { statuesSlice } from './statuses'
+
+const immutableInvariantMiddleware = createImmutableStateInvariantMiddleware()
 
 export const store = configureStore({
   reducer: {
     theme: themeSlice.reducer,
     issues: issuesSlice.reducer,
     statues: statuesSlice.reducer,
-  }
+  },
+  middleware: [immutableInvariantMiddleware],
 })
 
 

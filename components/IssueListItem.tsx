@@ -3,13 +3,13 @@ import React from 'react'
 import { Issue } from '../types'
 import { useTheme } from '@emotion/react'
 
-type Props = {
-  issue: Issue
-}
-
 type WrapperProps = {
   backgroundColor: string
   borderColor: string
+}
+
+type IssueListItemProps = {
+  issue: Issue
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -21,7 +21,7 @@ const Wrapper = styled.div<WrapperProps>`
   cursor: move;
 `
 
-const IssueListItem: React.FC<Props> = ({ issue }) => {
+const IssueListItem: React.FC<IssueListItemProps> = ({ issue }) => {
   const theme = useTheme()
 
   return (

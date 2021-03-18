@@ -17,6 +17,14 @@ export interface Theme {
     borderColor: string
     backgroundColor: string
   }
+  modal: {
+    backgroundColor: string
+  }
+  input: {
+    color: string
+    borderColor: string
+    hoverBorderColor: string
+  }
 }
 
 export interface Themes {
@@ -31,13 +39,21 @@ const theme: Themes = {
     button: {
       color: 'black',
       backgroundColor: 'white',
-      borderColor: '#30363d',
+      borderColor: '#cacaca',
       hoverColor: '#fefefe',
     },
     issue: {
       listBackgroundColor: '#eaeaea',
       borderColor: '#ccc',
       backgroundColor: '#efefef',
+    },
+    modal: {
+      backgroundColor: 'white',
+    },
+    input: {
+      color: 'black',
+      borderColor: '#ccc',
+      hoverBorderColor: '#aaa',
     }
   },
   [ThemeMode.Dark]: {
@@ -53,6 +69,14 @@ const theme: Themes = {
       listBackgroundColor: '#060910',
       borderColor: '#30363d',
       backgroundColor: '#161b22',
+    },
+    modal: {
+      backgroundColor: '#1e1e1e',
+    },
+    input: {
+      color: 'white',
+      borderColor: '#ccc',
+      hoverBorderColor: '#eee',
     }
   }
 }
