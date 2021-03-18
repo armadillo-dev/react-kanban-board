@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react'
 import { Icon } from '@mdi/react'
 import styled from '@emotion/styled'
 
-interface Props {
+interface ButtonIconProps {
   path: string
   size: number
   color: string
@@ -16,7 +16,7 @@ const Wrapper = styled.button`
   cursor: pointer;
 `
 
-const ButtonIcon: React.FC<Props> = ({
+const ButtonIcon: React.FC<ButtonIconProps> = ({
   className,
   onClick,
   ...iconProps

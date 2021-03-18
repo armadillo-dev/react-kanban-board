@@ -16,10 +16,10 @@ const KanbanBoardPage: React.FC = () => {
   const issues = useAppSelector(state => state.issues.issues)
   const statues = useAppSelector(state => state.statues.statues)
   const issuesByStatues = issues.reduce((result, current) => {
-    if (result.hasOwnProperty(current.status)) {
-      result[current.status].push(current)
+    if (result.hasOwnProperty(current.statusId)) {
+      result[current.statusId].push(current)
     } else {
-      result[current.status] = [current]
+      result[current.statusId] = [current]
     }
 
     return result

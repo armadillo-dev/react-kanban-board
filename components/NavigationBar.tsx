@@ -7,6 +7,13 @@ import { UrlMap } from '../data/enum/UrlMap'
 import ActiveLink from './ActiveLink'
 import ButtonIcon from './ButtonIcon'
 import { css } from '@emotion/react'
+import CreateIssueModal from './CreateIssueModal'
+import useCreateIssue from '../hooks/useCreateIssue'
+
+type NavigationBarProps = {
+  onToggleDarkMode: () => void
+  className?: string
+}
 
 const Wrapper = styled.nav`
   display: flex;
@@ -18,17 +25,18 @@ const Wrapper = styled.nav`
 const Menu = styled(ActiveLink)`
   display: inline-block;
   margin-right: 1.5rem;
+  text-decoration: none;
 `
 
-type Props = {
-  onToggleDarkMode: () => void
-  className?: string
-}
-
-const NavigationBar: React.FC<Props> = ({
+const NavigationBar: React.FC<NavigationBarProps> = ({
   onToggleDarkMode,
   className
 }) => {
+  const {
+    isShowCreateIssue,
+    showCreateIssueModal: onClickCreateIssue
+  } = useCreateIssue()
+
   return (
     <Wrapper className={className}>
       <Menu href={UrlMap.KanbanBoardPage}>
@@ -37,7 +45,9 @@ const NavigationBar: React.FC<Props> = ({
       <Menu href={UrlMap.StatusManagePage}>
         이슈 상태값 지정
       </Menu>
-      <Button>
+      <Button
+        onClick={onClickCreateIssue}
+      >
         이슈 만들기
       </Button>
       <ButtonIcon
@@ -47,6 +57,7 @@ const NavigationBar: React.FC<Props> = ({
         css={css`margin-left: auto`}
         onClick={onToggleDarkMode}
       />
+      { isShowCreateIssue && <CreateIssueModal /> }
     </Wrapper>
   )
 }

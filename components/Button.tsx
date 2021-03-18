@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler } from 'react'
-import styled from '@emotion/styled'
 import { css, useTheme } from '@emotion/react'
 
-type Props = {
+type ButtonProps = {
+  type?: 'button' | 'submit' | 'reset'
   className?: string
   onClick?: MouseEventHandler
 }
 
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
-  className,
-  onClick,
+  ...props
 }) => {
   const theme = useTheme()
 
@@ -28,12 +27,12 @@ const Button: React.FC<Props> = ({
         cursor: pointer;
         transition: 0.2s;
 
-        :hover {
+        :hover,
+        :focus {
           background-color: ${theme.button.hoverColor};
         }
       `}
-      className={className}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </button>

@@ -4,12 +4,11 @@ import { Provider } from 'react-redux'
 import { store } from '../stores'
 import App from '../components/App'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp(props: AppProps) {
   return (
     <Provider store={store}>
       <App
-        Component={Component}
-        pageProps={pageProps}
+        {...props}
       />
     </Provider>
   )

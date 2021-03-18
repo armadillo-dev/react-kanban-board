@@ -5,6 +5,7 @@ import globalStyles from '../styles/global'
 import NavigationBar from './NavigationBar'
 import useDarkMode from '../hooks/useDarkMode'
 import styled from '@emotion/styled'
+import type { AppProps } from 'next/app'
 
 type WrapperProps = {
   backgroundColor: string
@@ -16,11 +17,6 @@ const Wrapper = styled.div<WrapperProps>`
   flex-direction: column;
   background-color: ${props => props.backgroundColor}
 `
-
-type AppProps = {
-  Component: any,
-  pageProps: any
-}
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const { theme, onToggleDarkMode } = useDarkMode()

@@ -1,18 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react'
 import styled from '@emotion/styled'
-import { css, useTheme } from '@emotion/react'
+import { useTheme } from '@emotion/react'
 import { Issue } from '../types'
 import IssueListItem from './IssueListItem'
 
-type Props = {
-  title: string
-  issues: Issue[]
+type ContainerProps = {
+  borderColor: string
+  backgroundColor: string
 }
 
 type BadgeProps = {
   color: string
 }
+
+const Container = styled.section<ContainerProps>`
+  min-width: 300px;
+  max-width: 300px;
+  margin: 0 1rem 1rem 0;
+  padding: 1rem;
+  border: 1px solid ${props => props.borderColor};
+  border-radius: 6px;
+  background-color: ${props => props.backgroundColor};
+`
 
 const IssueTitle = styled.h2`
   display: flex;
@@ -32,21 +42,19 @@ const Badge = styled.span<BadgeProps>`
   background-color: ${props => props.color};
 `
 
-const IssueList: React.FC<Props> = ({ title, issues }) => {
+type IssueListProps = {
+  title: string
+  issues: Issue[]
+}
+
+const IssueList: React.FC<IssueListProps> = ({ title, issues }) => {
   const theme = useTheme()
   const count = issues.length
 
   return (
-    <section
-      css={css`
-        min-width: 300px;
-        max-width: 300px;
-        margin: 0 1rem 1rem 0;
-        padding: 1rem;
-        border: 1px solid ${theme.issue.borderColor};
-        border-radius: 6px;
-        background-color: ${theme.issue.listBackgroundColor};        
-      `}
+    <Container
+      borderColor={theme.issue.borderColor}
+      backgroundColor={theme.issue.listBackgroundColor}
     >
       <IssueTitle>
         <Badge
@@ -61,7 +69,7 @@ const IssueList: React.FC<Props> = ({ title, issues }) => {
           issue={issue}
         />
       ))}
-    </section>
+    </Container>
   )
 }
 

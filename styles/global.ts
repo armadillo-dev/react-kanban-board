@@ -1,23 +1,20 @@
+import emotionReset from 'emotion-reset'
 import { css } from '@emotion/react'
 
 export default css`
+  ${emotionReset}
+  
   html,
   body {
     width: 100%;
     height: 100%;
-    padding: 0;
-    margin: 0;
     font-size: 14px;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
   
-  body {
-    > div {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-    }
+  body > div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
   }
   
   h1,
@@ -31,12 +28,11 @@ export default css`
     padding: 0;
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  * {
-    box-sizing: border-box;
+  html,
+  body,
+  input, 
+  textarea {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 `

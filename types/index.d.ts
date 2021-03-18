@@ -1,9 +1,15 @@
 export interface Issue {
   id: number
-  status: number
+  statusId: number
   title: string
   content: string
   order: number
+}
+
+export interface NewIssue {
+  statusId: number
+  title: string
+  content: string
 }
 
 export interface Status {
