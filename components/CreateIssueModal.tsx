@@ -10,7 +10,7 @@ import styled from '@emotion/styled'
 import Input from './Input'
 import Textarea from './Textarea'
 import Button from './Button'
-import useCreateIssue from '../hooks/useCreateIssue'
+import useIssue from '../hooks/useIssue'
 import { css } from '@emotion/react'
 import Select, { SelectItem } from './Select'
 import { useAppSelector } from '../stores'
@@ -51,7 +51,7 @@ const ModalAction = styled.footer`
 `
 
 const CreateIssueModal: React.FC = () => {
-  const { hideCreateIssueModal, createIssue } = useCreateIssue()
+  const { hideCreateIssueModal, createIssue } = useIssue()
   const statusItems: SelectItem<number>[] = useAppSelector(state => state.statues.statues)
     .map(status => ({
       text: status.title,
