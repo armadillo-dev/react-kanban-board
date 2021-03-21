@@ -26,7 +26,7 @@ const KanbanBoardPage: React.FC = () => {
   }, {})
   const statuesByIssues: StatusWithIssues[] = statues.map(status => ({
     ...status,
-    issues: issuesByStatues[status.id]
+    issues: issuesByStatues[status.id] || [],
   }))
 
   return (

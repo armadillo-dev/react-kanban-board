@@ -6,11 +6,7 @@ export interface Issue {
   order: number
 }
 
-export interface NewIssue {
-  statusId: number
-  title: string
-  content: string
-}
+export type NewIssue = Omit<Issue, 'id' | 'order'>
 
 export interface Status {
   id: number

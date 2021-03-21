@@ -47,6 +47,7 @@ export const issuesSlice = createSlice({
     setIsShowModal: (state, payload: PayloadAction<boolean>) => {
       state.isShowModal = payload.payload
     },
+
     createIssue: (state, payload: PayloadAction<NewIssue>) => {
       const sameStatusIssue = issue => issue.statusId === payload.payload.statusId
       const sameStatusIssueCount = state.issues.filter(sameStatusIssue).length
@@ -58,8 +59,12 @@ export const issuesSlice = createSlice({
 
       state.issues.push(newIssue)
     },
+
+    deleteIssue: (state, payload: PayloadAction<Issue>) => {
+      state.issues = state.issues.filter(issue => issue.id !== payload.payload.id)
+    }
   }
 })
 
-export const { setIsShowModal, createIssue } = issuesSlice.actions
+export const { setIsShowModal, createIssue, deleteIssue } = issuesSlice.actions
 export default issuesSlice.reducer

@@ -8,7 +8,7 @@ import ActiveLink from './ActiveLink'
 import ButtonIcon from './ButtonIcon'
 import { css } from '@emotion/react'
 import CreateIssueModal from './CreateIssueModal'
-import useCreateIssue from '../hooks/useCreateIssue'
+import useIssue from '../hooks/useIssue'
 
 type NavigationBarProps = {
   onToggleDarkMode: () => void
@@ -35,7 +35,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   const {
     isShowCreateIssue,
     showCreateIssueModal: onClickCreateIssue
-  } = useCreateIssue()
+  } = useIssue()
 
   return (
     <Wrapper className={className}>

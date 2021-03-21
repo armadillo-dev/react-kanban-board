@@ -1,8 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../stores'
-import { setIsShowModal, createIssue as createIssueAction } from '../stores/issues'
-import { NewIssue } from '../types'
+import {
+  setIsShowModal,
+  createIssue as createIssueAction,
+  deleteIssue as deleteIssueAction,
+} from '../stores/issues'
+import { Issue, NewIssue } from '../types'
 
-export default function useCreateIssue() {
+export default function useIssue() {
   const isShowCreateIssueModal = useAppSelector(state => state.issues.isShowModal)
   const dispatch = useAppDispatch()
 
@@ -18,10 +22,15 @@ export default function useCreateIssue() {
     dispatch(createIssueAction(issue))
   }
 
+  const deleteIssue = (issue: Issue) => {
+    dispatch(deleteIssueAction(issue))
+  }
+
   return {
     isShowCreateIssue: isShowCreateIssueModal,
     showCreateIssueModal,
     hideCreateIssueModal,
     createIssue,
+    deleteIssue,
   }
 }
