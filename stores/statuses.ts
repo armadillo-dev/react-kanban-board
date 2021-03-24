@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Status } from '../types'
 
 
 export interface StatusesState {
   statues: Status[]
+  isShowModal: boolean
 }
 
 const initialState: StatusesState = {
@@ -23,15 +24,29 @@ const initialState: StatusesState = {
       title: 'Done',
       order: 2,
     },
-  ]
+  ],
+  isShowModal: false,
 }
 
 export const statuesSlice = createSlice({
   name: 'statues',
   initialState,
   reducers: {
+    setIsShowModal: (state, payload: PayloadAction<boolean>) => {
+      state.isShowModal = payload.payload
+    },
+
+    createStatus: (state, payload: PayloadAction<string>) => {
+      const { length } = state.statues
+      const newStatus: Status = {
+        id: length + 1,
+        title: payload.payload,
+        order: length,
+      }
+      state.statues.push(newStatus)
+    }
   }
 })
 
-export const { } = statuesSlice.actions
+export const { setIsShowModal, createStatus } = statuesSlice.actions
 export default statuesSlice.reducer

@@ -5,53 +5,16 @@ import React, {
   MouseEventHandler,
   useState,
 } from 'react'
-import Modal from './Modal'
-import styled from '@emotion/styled'
 import Input from './Input'
 import Textarea from './Textarea'
-import Button from './Button'
 import useIssue from '../hooks/useIssue'
-import { css } from '@emotion/react'
 import Select, { SelectItem } from './Select'
 import { useAppSelector } from '../stores'
 import { NewIssue } from '../types'
-
-interface LabelProps {
-  htmlFor: string
-}
-
-const Wrapper = styled(Modal)`
-  align-self: start;
-  width: 60%;
-  max-width: 500px;
-  margin-top: 80px;
-  padding: 2rem;
-  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-`
-
-const Title = styled.h3`
-  margin-bottom: 2rem;
-  font-size: 1.3rem;
-  font-weight: bold;
-`
-
-const FieldSet = styled.fieldset`
-  display: block;
-  margin-bottom: 1.5rem;
-`
-
-const Label = styled.label<LabelProps>`
-  display: block;
-  margin-bottom: 12px;
-`
-
-const ModalAction = styled.footer`
-  display: flex;
-  justify-content: flex-end;
-`
+import ModalForm, { FieldSet, Label } from './ModalForm'
 
 const CreateIssueModal: React.FC = () => {
-  const { hideCreateIssueModal, createIssue } = useIssue()
+  const { hideIssueModal, createIssue } = useIssue()
   const statusItems: SelectItem<number>[] = useAppSelector(state => state.statues.statues)
     .map(status => ({
       text: status.title,
@@ -83,68 +46,56 @@ const CreateIssueModal: React.FC = () => {
 
     event.preventDefault()
     createIssue(newIssue)
-    hideCreateIssueModal()
+    hideIssueModal()
   }
 
   const onClickCancel: MouseEventHandler<HTMLButtonElement> = () => {
-    hideCreateIssueModal()
+    hideIssueModal()
   }
 
   return (
-    <Wrapper>
-      <Title>이슈 만들기</Title>
-      <form onSubmit={onSubmit}>
-        <FieldSet>
-          <Label htmlFor="statusId">
-            상태:
-          </Label>
-          <Select
-            id="statusId"
-            value={statusId}
-            items={statusItems}
-            onChange={onChangeStatusId}
-          />
-        </FieldSet>
-        <FieldSet>
-          <Label htmlFor="title">
-            제목:
-          </Label>
-          <Input
-            id="title"
-            type="text"
-            value={title}
-            required
-            onChange={onInputTitle}
-          />
-        </FieldSet>
-        <FieldSet>
-          <Label htmlFor="content">
-            내용:
-          </Label>
-          <Textarea
-            id="content"
-            value={content}
-            rows={10}
-            required
-            onChange={onInputContent}
-          />
-        </FieldSet>
-        <ModalAction>
-          <Button
-            type="reset"
-            css={css`margin-right: 8px`}
-            onClick={onClickCancel}
-          >
-            취소
-          </Button>
-          <Button
-            type="submit"
-          >
-            생성
-          </Button>
-        </ModalAction>
-      </form>
-    </Wrapper>
+    <ModalForm
+      title="이슈 만들기"
+      submitText="만들기"
+      onSubmit={onSubmit}
+      onClickCancel={onClickCancel}
+    >
+      <FieldSet>
+        <Label htmlFor="statusId">
+          상태:
+        </Label>
+        <Select
+          id="statusId"
+          value={statusId}
+          items={statusItems}
+          onChange={onChangeStatusId}
+        />
+      </FieldSet>
+      <FieldSet>
+        <Label htmlFor="title">
+          제목:
+        </Label>
+        <Input
+          id="title"
+          type="text"
+          value={title}
+          required
+          onChange={onInputTitle}
+        />
+      </FieldSet>
+      <FieldSet>
+        <Label htmlFor="content">
+          내용:
+        </Label>
+        <Textarea
+          id="content"
+          value={content}
+          rows={10}
+          required
+          onChange={onInputContent}
+        />
+      </FieldSet>
+    </ModalForm>
   )
 }
 

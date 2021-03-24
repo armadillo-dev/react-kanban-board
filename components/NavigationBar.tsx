@@ -33,8 +33,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   className
 }) => {
   const {
-    isShowCreateIssue,
-    showCreateIssueModal: onClickCreateIssue
+    isShowIssueModal,
+    showIssueModal: onClickCreateIssue
   } = useIssue()
 
   return (
@@ -57,7 +57,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
         css={css`margin-left: auto`}
         onClick={onToggleDarkMode}
       />
-      { isShowCreateIssue && <CreateIssueModal /> }
+      { isShowIssueModal && <CreateIssueModal /> }
     </Wrapper>
   )
 }
