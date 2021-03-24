@@ -7,14 +7,14 @@ import {
 import { Issue, NewIssue } from '../types'
 
 export default function useIssue() {
-  const isShowCreateIssueModal = useAppSelector(state => state.issues.isShowModal)
+  const isShowIssueModal = useAppSelector(state => state.issues.isShowModal)
   const dispatch = useAppDispatch()
 
-  const showCreateIssueModal = () => {
+  const showIssueModal = () => {
     dispatch(setIsShowModal(true))
   }
 
-  const hideCreateIssueModal = () => {
+  const hideIssueModal = () => {
     dispatch(setIsShowModal(false))
   }
 
@@ -27,9 +27,9 @@ export default function useIssue() {
   }
 
   return {
-    isShowCreateIssue: isShowCreateIssueModal,
-    showCreateIssueModal,
-    hideCreateIssueModal,
+    isShowIssueModal,
+    showIssueModal,
+    hideIssueModal,
     createIssue,
     deleteIssue,
   }

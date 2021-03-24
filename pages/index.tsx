@@ -4,6 +4,9 @@ import IssueList from '../components/IssueList'
 import styled from '@emotion/styled'
 import { useAppSelector } from '../stores'
 import { StatusWithIssues } from '../types'
+import CreateStatusButton from '../components/CreateStatusButton'
+import useStatus from '../hooks/useStatus'
+import CreateStatusModal from '../components/CreateStatusModal'
 
 const Container = styled.main`
   display: flex;
@@ -13,6 +16,7 @@ const Container = styled.main`
 `
 
 const KanbanBoardPage: React.FC = () => {
+  const { isShowStatusModal } = useStatus()
   const issues = useAppSelector(state => state.issues.issues)
   const statues = useAppSelector(state => state.statues.statues)
   const issuesByStatues = issues.reduce((result, current) => {
@@ -42,7 +46,9 @@ const KanbanBoardPage: React.FC = () => {
             issues={status.issues}
           />
         ))}
+        <CreateStatusButton />
       </Container>
+      {isShowStatusModal && <CreateStatusModal />}
     </>
   )
 }
