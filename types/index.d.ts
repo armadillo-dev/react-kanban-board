@@ -17,3 +17,7 @@ export interface Status {
 export interface StatusWithIssues extends Status {
   issues: Issue[]
 }
+
+export interface IssuesByStatus {
+  [status: string]: Issue[]
+}

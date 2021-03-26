@@ -8,6 +8,8 @@ export default function useStatus() {
   const isShowStatusModal = useAppSelector(state => state.statues.isShowModal)
   const dispatch = useAppDispatch()
 
+  const statues = useAppSelector(state => state.statues.statues)
+
   const showStatusModal = () => {
     dispatch(setIsShowModal(true))
   }
@@ -21,6 +23,7 @@ export default function useStatus() {
   }
 
   return {
+    statues,
     isShowStatusModal,
     showStatusModal,
     hideStatusModal,

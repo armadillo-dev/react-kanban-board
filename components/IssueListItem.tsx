@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
 import { mdiCloseCircle } from '@mdi/js';
-import React, { useState } from 'react'
+import React, { DragEventHandler, useState } from 'react'
 import { Issue } from '../types'
 import ButtonIcon from './ButtonIcon'
 import useIssue from '../hooks/useIssue'
@@ -14,6 +14,7 @@ type WrapperProps = {
 
 type IssueListItemProps = {
   issue: Issue
+  onDragStart: DragEventHandler
 }
 
 const Wrapper = styled.article<WrapperProps>`
@@ -37,7 +38,10 @@ const IssueTitle = styled.h3`
   margin: 0 auto 0 0;
 `
 
-const IssueListItem: React.FC<IssueListItemProps> = ({ issue }) => {
+const IssueListItem: React.FC<IssueListItemProps> = ({
+  issue,
+  onDragStart,
+}) => {
   const theme = useTheme()
   const { deleteIssue } = useIssue()
   const [isShowConfirm, setIsShowConfirm] = useState(false)
@@ -58,8 +62,11 @@ const IssueListItem: React.FC<IssueListItemProps> = ({ issue }) => {
   return (
     <>
       <Wrapper
+        id={issue.id.toString()}
         backgroundColor={theme.issue.backgroundColor}
         borderColor={theme.issue.borderColor}
+        draggable
+        onDragStart={onDragStart}
       >
         <IssueHeader>
           <IssueTitle>{issue.title}</IssueTitle>
