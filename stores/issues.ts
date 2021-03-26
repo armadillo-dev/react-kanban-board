@@ -62,9 +62,36 @@ export const issuesSlice = createSlice({
 
     deleteIssue: (state, payload: PayloadAction<Issue>) => {
       state.issues = state.issues.filter(issue => issue.id !== payload.payload.id)
+    },
+
+    changeStatus: (state, payload: PayloadAction<{ issueId: number, statusId: number }>) => {
+      const { issueId, statusId } = payload.payload
+      const issue = state.issues.find(issue => issue.id === issueId)
+      const currentStatusId = issue.statusId
+
+      if (currentStatusId === statusId) {
+        return
+      }
+
+      const nextOrder = state.issues.filter(issue => issue.statusId === statusId).length
+
+      issue.statusId = statusId
+      issue.order = nextOrder
+
+      state.issues
+        .filter(issue => issue.statusId === currentStatusId)
+        .sort((a, b) =>  b.order - a.order)
+        .map((issue, index) => {
+          issue.order = index
+        })
     }
   }
 })
 
-export const { setIsShowModal, createIssue, deleteIssue } = issuesSlice.actions
+export const {
+  setIsShowModal,
+  createIssue,
+  deleteIssue,
+  changeStatus,
+} = issuesSlice.actions
 export default issuesSlice.reducer

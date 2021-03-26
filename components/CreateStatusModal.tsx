@@ -38,6 +38,7 @@ const CreateStatusModal: React.FC = () => {
           id="title"
           type="text"
           value={title}
+          required
           onChange={onInputTitle}
         />
       </FieldSet>

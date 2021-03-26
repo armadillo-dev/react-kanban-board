@@ -2,11 +2,11 @@ import React from 'react'
 import Head from 'next/head'
 import IssueList from '../components/IssueList'
 import styled from '@emotion/styled'
-import { useAppSelector } from '../stores'
-import { StatusWithIssues } from '../types'
+import { IssuesByStatus, StatusWithIssues } from '../types'
 import CreateStatusButton from '../components/CreateStatusButton'
 import useStatus from '../hooks/useStatus'
 import CreateStatusModal from '../components/CreateStatusModal'
+import useIssue from '../hooks/useIssue'
 
 const Container = styled.main`
   display: flex;
@@ -17,20 +17,22 @@ const Container = styled.main`
 
 const KanbanBoardPage: React.FC = () => {
   const { isShowStatusModal } = useStatus()
-  const issues = useAppSelector(state => state.issues.issues)
-  const statues = useAppSelector(state => state.statues.statues)
-  const issuesByStatues = issues.reduce((result, current) => {
-    if (result.hasOwnProperty(current.statusId)) {
-      result[current.statusId].push(current)
-    } else {
-      result[current.statusId] = [current]
-    }
+  const { issues } = useIssue()
+  const { statues } = useStatus()
+  const issuesByStatues: IssuesByStatus = [...issues]
+    .sort((a, b) => a.order - b.order)
+    .reduce((result, current) => {
+      if (!result.hasOwnProperty(current.statusId)) {
+        result[current.statusId] = [current]
+        return result
+      }
 
-    return result
-  }, {})
+      result[current.statusId].push(current)
+      return result
+    }, {})
   const statuesByIssues: StatusWithIssues[] = statues.map(status => ({
     ...status,
-    issues: issuesByStatues[status.id] || [],
+    issues: issuesByStatues[status.id] ?? [],
   }))
 
   return (
@@ -42,7 +44,7 @@ const KanbanBoardPage: React.FC = () => {
         {statuesByIssues.map(status => (
           <IssueList
             key={status.id}
-            title={status.title}
+            status={status}
             issues={status.issues}
           />
         ))}

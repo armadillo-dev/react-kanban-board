@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react'
+import React, { DragEventHandler } from 'react'
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
-import { Issue } from '../types'
+import { Issue, Status } from '../types'
 import IssueListItem from './IssueListItem'
+import useIssue from '../hooks/useIssue'
 
 type ContainerProps = {
   borderColor: string
@@ -43,30 +44,54 @@ const Badge = styled.span<BadgeProps>`
 `
 
 type IssueListProps = {
-  title: string
+  status: Status,
   issues: Issue[]
 }
 
-const IssueList: React.FC<IssueListProps> = ({ title, issues }) => {
+const IssueList: React.FC<IssueListProps> = ({
+  status,
+  issues,
+}) => {
   const theme = useTheme()
+  const { changeIssueStatus } = useIssue()
   const count = issues.length
+
+  const onDragStart: DragEventHandler<HTMLElement> = (event) => {
+    const { currentTarget } = event
+    event.dataTransfer.setData('issueId', currentTarget.id)
+  }
+
+  const onDrop: DragEventHandler = (event) => {
+    event.preventDefault()
+    const issueId = Number(event.dataTransfer.getData('issueId'))
+    changeIssueStatus(issueId, status.id)
+
+  }
+
+  const onDragOver: DragEventHandler = (event) => {
+    event.preventDefault()
+  }
 
   return (
     <Container
       borderColor={theme.issue.borderColor}
       backgroundColor={theme.issue.listBackgroundColor}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
     >
       <IssueTitle>
         <Badge
           color={theme.button.backgroundColor}>
           {count}
         </Badge>
-        <span>{title}</span>
+        <span>{status.title}</span>
       </IssueTitle>
+
       {issues.map(issue => (
         <IssueListItem
           key={issue.id}
           issue={issue}
+          onDragStart={onDragStart}
         />
       ))}
     </Container>
