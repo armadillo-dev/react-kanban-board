@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { css, Global, ThemeProvider } from '@emotion/react'
 import globalStyles from '../styles/global'
 import NavigationBar from './NavigationBar'
@@ -19,18 +19,32 @@ const Wrapper = styled.div<WrapperProps>`
 `
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const { theme, onToggleDarkMode } = useDarkMode()
+  const {
+    theme,
+    detectOSDarkMode,
+    setDarkMode,
+    watchDarkMode,
+    toggleDarkMode,
+  } = useDarkMode()
+
   const additionalGlobalStyles = css`
     body {
       color: ${theme.textColor}
     }
   `
+  useEffect(() => {
+    const isOSDarkMode = detectOSDarkMode()
+    setDarkMode(isOSDarkMode)
+  }, [])
+
+  watchDarkMode()
+
   return (
     <ThemeProvider theme={theme}>
     <Global styles={globalStyles} />
     <Global styles={additionalGlobalStyles} />
     <NavigationBar
-      onToggleDarkMode={onToggleDarkMode}
+      onToggleDarkMode={toggleDarkMode}
     />
     <Wrapper
       backgroundColor={theme.backgroundColor}
