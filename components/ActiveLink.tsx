@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import Link, { LinkProps } from 'next/link'
 import styled from '@emotion/styled'
 
 type InnerLinkProps = {
@@ -15,7 +15,7 @@ const InnerLink = styled.a<InnerLinkProps>`
   }
 `
 
-type ActiveLinkProps = {
+interface ActiveLinkProps extends LinkProps {
   href: string
   className?: string
 }
@@ -23,7 +23,8 @@ type ActiveLinkProps = {
 const ActiveLink: React.FC<ActiveLinkProps> = ({
   href,
   className,
-  children
+  children,
+  ...props
 }) => {
   const router = useRouter()
   const isActive = router.pathname === href
@@ -32,6 +33,7 @@ const ActiveLink: React.FC<ActiveLinkProps> = ({
     <Link
       passHref
       href={href}
+      {...props}
     >
       <InnerLink
         isActive={isActive}

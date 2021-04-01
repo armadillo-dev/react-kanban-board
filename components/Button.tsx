@@ -1,12 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { MouseEventHandler } from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import { css, useTheme } from '@emotion/react'
 
-type ButtonProps = {
-  type?: 'button' | 'submit' | 'reset'
-  className?: string
-  onClick?: MouseEventHandler
-}
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button: React.FC<ButtonProps> = ({
   children,

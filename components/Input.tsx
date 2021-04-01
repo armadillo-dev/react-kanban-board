@@ -1,19 +1,13 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
 
-interface InnerInputProps {
+type InputProps = InputHTMLAttributes<HTMLInputElement>
+
+interface InnerInputProps extends InputProps {
   color: string
   borderColor: string
   hoverBorderColor: string
-}
-
-interface InputProps {
-  id: string
-  type: string
-  value: string
-  required?: boolean
-  onChange: ChangeEventHandler<HTMLInputElement>
 }
 
 const InnerInput = styled.input<InnerInputProps>`

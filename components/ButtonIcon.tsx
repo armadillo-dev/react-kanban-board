@@ -1,13 +1,12 @@
-import React, { MouseEventHandler } from 'react'
+import React  from 'react'
 import { Icon } from '@mdi/react'
 import styled from '@emotion/styled'
+import { ButtonProps } from './Button'
 
-interface ButtonIconProps {
+interface ButtonIconProps extends ButtonProps {
   path: string
   size: number
   color: string
-  className?: string
-  onClick?: MouseEventHandler
 }
 
 const Wrapper = styled.button`

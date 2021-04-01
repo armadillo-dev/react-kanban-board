@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { HTMLAttributes } from 'react'
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 
@@ -7,14 +7,12 @@ export interface SelectItem<T> {
   value: T
 }
 
-interface SelectProps {
-  id: string
-  value: any
-  items: SelectItem<any>[]
-  onChange: ChangeEventHandler<HTMLSelectElement>
+interface SelectProps<T = any> extends HTMLAttributes<HTMLSelectElement> {
+  value: T
+  items: SelectItem<T>[]
 }
 
-interface InnerSelectProps {
+interface InnerSelectProps extends Omit<SelectProps, 'items'> {
   color: string
   borderColor: string
   hoverBorderColor: string

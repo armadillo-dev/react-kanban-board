@@ -65,7 +65,6 @@ const IssueList: React.FC<IssueListProps> = ({
     event.preventDefault()
     const issueId = Number(event.dataTransfer.getData('issueId'))
     changeIssueStatus(issueId, status.id)
-
   }
 
   const onDragOver: DragEventHandler = (event) => {

@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { FormEventHandler, MouseEventHandler } from 'react'
+import React, { FormEventHandler, HTMLAttributes, MouseEventHandler } from 'react'
 import styled from '@emotion/styled'
 import Modal from './Modal'
 import Button from './Button'
 import { css } from '@emotion/react'
 
-interface LabelProps {
-  htmlFor: string
-}
+type LabelProps = HTMLAttributes<HTMLLabelElement>
 
 const Wrapper = styled(Modal)`
   align-self: start;

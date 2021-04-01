@@ -1,19 +1,13 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { TextareaHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
 
-interface InnerTextareaProps {
+type TextareaProps =  TextareaHTMLAttributes<HTMLTextAreaElement>
+
+interface InnerTextareaProps extends TextareaProps {
   color: string
   borderColor: string
   hoverBorderColor: string
-}
-
-interface TextareaProps {
-  id: string
-  value: string
-  rows: number
-  required?: boolean
-  onChange: ChangeEventHandler<HTMLTextAreaElement>
 }
 
 const InnerTextarea = styled.textarea<InnerTextareaProps>`
